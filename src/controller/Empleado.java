@@ -3,18 +3,19 @@ package controller;
 
 public class Empleado {
     private String run, nombre, apellidoPaterno, apellidoMaterno,tipoEmpleado;
-    private int telefono;
+    private int telefono, tipoContrato;
 
     public Empleado() {
     }
 
-    public Empleado(String run, String nombre, String apellidoPaterno, String apellidoMaterno, String tipoEmpleado, int telefono) {
+    public Empleado(String run, String nombre, String apellidoPaterno, String apellidoMaterno, String tipoEmpleado, int telefono, int tipoContrato) {
         this.run = run;
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
         this.tipoEmpleado = tipoEmpleado;
         this.telefono = telefono;
+        this.tipoContrato = tipoContrato;
     }
 
     public String getRun() {
@@ -65,6 +66,14 @@ public class Empleado {
         this.telefono = telefono;
     }
 
+    public int getTipoContrato() {
+        return tipoContrato;
+    }
+
+    public void setTipoContrato(int tipoContrato) {
+        this.tipoContrato = tipoContrato;
+    }
+
     @Override
     public String toString() {
         return "\nEmpleado: " + "Run del Empleado: " + run + 
@@ -72,10 +81,8 @@ public class Empleado {
                "\nApellido Paterno del Empleado: " + apellidoPaterno + 
                "\nApellido Materno del Empleado: " + apellidoMaterno + 
                "\nTipo de Empleado: " + tipoEmpleado +
-               "\nTelefono del Empleado: " + telefono ;
+               "\nTelefono del Empleado: " + telefono +
+	       "\ntipoContrato=" + tipoContrato;
     }
-    
-    
-    
-    
-}
+
+} 

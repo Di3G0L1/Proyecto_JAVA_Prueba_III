@@ -18,9 +18,9 @@ public class EmpleadoDAO {
         //creamos variable booleana para controlar el retorno
         boolean resultado = false;
         //creamos variable para manipular la query
-        String query = "INSERT INTO EMPLEADO (RUT, NOMBRES, APELLIDO_PATERNO," +
-                "APELLIDO_MATERNO, TIPO EMPLEADO, TELEFONO)" +
-                "VALUES (?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO EMPLEADO (RUN, NOMBRES, APELLIDO_PATERNO, " +
+                "APELLIDO_MATERNO, TIPO_EMPLEADO, TELEFONO, TIPO_CONTRATO )" +
+                "VALUES (?, ?, ?, ?, ?, ?, ?)";
         
         //preparar query para evitar inyecciones sql
         try {
@@ -32,6 +32,7 @@ public class EmpleadoDAO {
             ps.setString(i++, empleado.getApellidoMaterno());
             ps.setString(i++, empleado.getTipoEmpleado());
             ps.setInt(i++, empleado.getTelefono());
+            ps.setInt(i++, empleado.getTipoContrato());
             ps.execute();
             resultado = true;
         } catch (SQLException e) {
@@ -49,7 +50,7 @@ public class EmpleadoDAO {
         boolean resultado = false;
         String query = "UPDATE EMPLEADO SET NOMBRES = ?, " +
         "APELLIDO_PATERNO = ?, APELLIDO_MATERNO = ?, " +
-        "TIPO EMPLEADO = ?, TELEFONO = ?" + 
+        "TIPO_EMPLEADO = ?, TELEFONO = ?, TIPO_CONTRATO = ? " + 
         "WHERE RUN = ?";
         
         try {
@@ -61,6 +62,8 @@ public class EmpleadoDAO {
             ps.setString(i++, empleado.getApellidoMaterno());
             ps.setString(i++, empleado.getTipoEmpleado());
             ps.setInt(i++, empleado.getTelefono());
+            ps.setInt(i++, empleado.getTipoContrato());
+            ps.setString(i++, empleado.getRun());
             ps.execute();
             resultado = true;
             
@@ -75,17 +78,17 @@ public class EmpleadoDAO {
      * @author Diego - Seba
      * @params String run
      */
-    public Empleado buscarPorRut(String rut){
+    public Empleado buscarPorRun(String run){
         Empleado emp = null;
         
         String query = "SELECT RUN, NOMBRES, APELLIDO_PATERNO, " +
-            "APELLIDO_MATERNO, TIPO_EMPLEADO, TELEFONO" +
-            "FROM EMPLEADO WHERE RUT = ?";
+            "APELLIDO_MATERNO, TIPO_EMPLEADO, TELEFONO, TIPO_CONTRATO " +
+            "FROM EMPLEADO WHERE RUN = ?";
                 
         try {
             PreparedStatement ps = ConexionDAO.getConnection().prepareStatement(query);
             int i = 1;
-            ps.setString(i++, rut);
+            ps.setString(i++, run);
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
                 //crear paciente
@@ -96,11 +99,34 @@ public class EmpleadoDAO {
                 emp.setApellidoMaterno(rs.getString("APELLIDO_MATERNO"));
                 emp.setTipoEmpleado(rs.getString("TIPO_EMPLEADO"));
                 emp.setTelefono(rs.getInt("TELEFONO"));
+                emp.setTipoContrato(rs.getInt("TIPO_CONTRATO"));                
                
             }
         } catch (Exception e) {
             e.printStackTrace();
         }        
         return emp;
+    }
+    
+        /**
+     * metodo encargado de eliminar un Empleado de la BB.DD
+     * @author Diego - Seba
+     * @params String rut
+     */
+    public boolean eliminar(String run){
+        boolean resultado = false;
+        
+        String query = "DELETE FROM EMPLEADO WHERE RUN = ?";
+        
+        try {
+            PreparedStatement ps = ConexionDAO.getConnection().prepareStatement(query);
+            int i = 1;
+            ps.setString(i++, run);
+            ps.execute();
+            resultado = true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return resultado;
     }
 }

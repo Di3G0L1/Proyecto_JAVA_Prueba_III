@@ -9,9 +9,7 @@ import model.EmpleadoDAO;
  *
  * @author Diego-Seba
  */
-
    
-    
 public class FormularioEmpleado extends javax.swing.JFrame {
     private Empleado empleado;
     /**
@@ -54,6 +52,9 @@ public class FormularioEmpleado extends javax.swing.JFrame {
         cmbTipoEmpleado = new javax.swing.JComboBox<>();
         lblTelefono = new javax.swing.JLabel();
         txtTelefono = new javax.swing.JTextField();
+        lblContrato = new javax.swing.JLabel();
+        txtContrato = new javax.swing.JTextField();
+        lblGlosarioContrato = new javax.swing.JLabel();
 
         jCheckBox1.setText("jCheckBox1");
 
@@ -76,7 +77,7 @@ public class FormularioEmpleado extends javax.swing.JFrame {
             }
         });
 
-        cmbAccion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CREAR EMPLEADO", "EDITAR EMPLEADO", "ELIMINAR EMPLEADO" }));
+        cmbAccion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CREAR EMPLEADO", "GESTIONAR EMPLEADO" }));
         cmbAccion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbAccionActionPerformed(evt);
@@ -91,6 +92,11 @@ public class FormularioEmpleado extends javax.swing.JFrame {
         });
 
         btnEliminar.setText("ELIMINAR");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         btnBuscar.setText("BUSCAR");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -137,51 +143,64 @@ public class FormularioEmpleado extends javax.swing.JFrame {
 
         lblTelefono.setText("TELEFONO");
 
+        lblContrato.setText("TIPO CONTRATO");
+
+        lblGlosarioContrato.setText("1 = Plazo Fijo     ;     2 = Contrato Indefinido");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jpanTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnGuardar))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblTipoEmpleado)
+                            .addComponent(lblTelefono)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(lblApellidoMat)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(lblNombre)
+                                    .addComponent(lblApellidoPat)
+                                    .addComponent(lblRun)))
+                            .addComponent(lblContrato))
+                        .addGap(45, 45, 45)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtApellidoPat, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(txtRun, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(txtTelefono, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
+                                .addComponent(cmbTipoEmpleado, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txtApellidoMat, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
+                                .addComponent(txtContrato)))))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblNombre)
-                            .addComponent(lblRun))
-                        .addGap(79, 79, 79)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtRun, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(38, 38, 38)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cmbAccion, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnBuscar)))
-                    .addComponent(lblApellidoMat)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(lblApellidoPat)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
-                            .addComponent(txtApellidoPat, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(lblTipoEmpleado)
-                                .addComponent(lblTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(23, 23, 23)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(txtApellidoMat)
-                                .addComponent(cmbTipoEmpleado, 0, 175, Short.MAX_VALUE)
-                                .addComponent(txtTelefono))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(202, 202, 202)
-                        .addComponent(btnGuardar)
-                        .addGap(29, 29, 29)
+                        .addGap(11, 11, 11)
                         .addComponent(btnEditar)
-                        .addGap(32, 32, 32)
-                        .addComponent(btnEliminar)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                        .addGap(30, 30, 30)
+                        .addComponent(btnEliminar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnBuscar)
+                        .addGap(90, 90, 90))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(cmbAccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(lblImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(151, 151, 151)
+                .addComponent(lblGlosarioContrato, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -211,23 +230,25 @@ public class FormularioEmpleado extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblTipoEmpleado)
                             .addComponent(cmbTipoEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(84, 84, 84)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(btnGuardar)
-                                    .addComponent(btnEditar)
-                                    .addComponent(btnEliminar)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(lblTelefono)
-                                    .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(63, 63, 63))))
+                        .addGap(22, 22, 22)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblTelefono)
+                            .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(12, 12, 12)
                         .addComponent(lblImagen)))
-                .addContainerGap(399, Short.MAX_VALUE))
+                .addGap(26, 26, 26)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblContrato)
+                    .addComponent(txtContrato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addComponent(lblGlosarioContrato)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnGuardar)
+                    .addComponent(btnEditar)
+                    .addComponent(btnEliminar))
+                .addGap(19, 19, 19))
         );
 
         pack();
@@ -242,6 +263,7 @@ public class FormularioEmpleado extends javax.swing.JFrame {
         empleado.setApellidoMaterno(txtApellidoMat.getText());
         empleado.setTipoEmpleado((String) cmbTipoEmpleado.getSelectedItem());
         empleado.setTelefono(Integer.parseInt(txtTelefono.getText()));
+        empleado.setTipoContrato(Integer.parseInt(txtContrato.getText()));
         
         System.out.println(empleado);
         
@@ -267,11 +289,16 @@ public class FormularioEmpleado extends javax.swing.JFrame {
         lblApellidoMat.setVisible(true);
         lblTipoEmpleado.setVisible(true);
         lblTelefono.setVisible(true);
+        lblContrato.setVisible(true);
+        lblGlosarioContrato.setVisible(true);
+        txtContrato.setVisible(true);
         lblImagen.setVisible(true);
+        
         //esconder componentes
         btnBuscar.setVisible(false);
         btnEditar.setVisible(false);
         btnEliminar.setVisible(false);
+        btnGuardar.setVisible(true);
     }
     
     public void accionEditar(){
@@ -288,6 +315,9 @@ public class FormularioEmpleado extends javax.swing.JFrame {
         lblApellidoMat.setVisible(false);
         lblTipoEmpleado.setVisible(false);
         lblTelefono.setVisible(false);
+        lblContrato.setVisible(false);
+        lblGlosarioContrato.setVisible(false);
+        txtContrato.setVisible(false);        
         lblImagen.setVisible(true);
         //esconder componentes
         btnBuscar.setVisible(true);
@@ -309,32 +339,32 @@ public class FormularioEmpleado extends javax.swing.JFrame {
         lblApellidoMat.setVisible(true);
         lblTipoEmpleado.setVisible(true);
         lblTelefono.setVisible(true);
+        lblContrato.setVisible(true);
+        lblGlosarioContrato.setVisible(true);
+        txtContrato.setVisible(true);        
         lblImagen.setVisible(true);
         //esconder componentes
         btnBuscar.setVisible(true);
         btnEditar.setVisible(true);
-        btnEliminar.setVisible(false);
+        btnEliminar.setVisible(true);
         btnGuardar.setVisible(false);
     }
-    
+           
     private void cmbAccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbAccionActionPerformed
         if("CREAR EMPLEADO".equals(cmbAccion.getSelectedItem())){
             accionCrear();
         }
-        if("EDITAR EMPLEADO".equals(cmbAccion.getSelectedItem())){
+        if("GESTIONAR EMPLEADO".equals(cmbAccion.getSelectedItem())){
             accionEditar();
-        }
-        if("ELIMINAR EMPLEADO".equals(cmbAccion.getSelectedItem())){
-            //accionEliminar();
         }
     }//GEN-LAST:event_cmbAccionActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         //Guardar la informacion del formulario en objeto paciente
-        String rut = txtRun.getText();
+        String run = txtRun.getText();
         //DAO
         EmpleadoDAO dao = new EmpleadoDAO();
-        Empleado emp = dao.buscarPorRut(rut);
+        Empleado emp = dao.buscarPorRun(run);
         
         if(emp != null){
             //crear una nueva accion
@@ -342,9 +372,9 @@ public class FormularioEmpleado extends javax.swing.JFrame {
             txtNombre.setText(emp.getNombre());
             txtApellidoPat.setText(emp.getApellidoPaterno());
             txtApellidoMat.setText(emp.getApellidoMaterno());
-            cmbTipoEmpleado.getSelectedItem();
-            txtTelefono.setText(String.valueOf(txtTelefono.getText()));       
-            
+            cmbTipoEmpleado.setSelectedItem(emp.getTipoEmpleado());
+            txtTelefono.setText(String.valueOf(txtTelefono.getText()));
+            txtContrato.setText(String.valueOf(txtContrato.getText()));
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
@@ -356,7 +386,8 @@ public class FormularioEmpleado extends javax.swing.JFrame {
         empleado.setApellidoMaterno(txtApellidoMat.getText());
         empleado.setTipoEmpleado((String) cmbTipoEmpleado.getSelectedItem());
         empleado.setTelefono(Integer.parseInt(txtTelefono.getText()));
-
+        empleado.setTipoContrato(Integer.parseInt(txtContrato.getText()));
+        
         EmpleadoDAO dao = new EmpleadoDAO();
         boolean resultado = dao.actualizar(empleado);
         System.out.println("actualizado--> " + resultado);
@@ -370,8 +401,38 @@ public class FormularioEmpleado extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void cmbTipoEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTipoEmpleadoActionPerformed
-        // TODO add your handling code here:
+     if (empleado == null) {
+        return; // Evitar ejecución si empleado es null
+    }
+
+    // Obtén el valor seleccionado en el JComboBox
+    String tipoSeleccionado = (String) cmbTipoEmpleado.getSelectedItem();
+    
+    // Asigna el valor seleccionado al atributo tipoEmpleado
+    empleado.setTipoEmpleado(tipoSeleccionado);
+    
     }//GEN-LAST:event_cmbTipoEmpleadoActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+    String run = txtRun.getText();
+    EmpleadoDAO dao = new EmpleadoDAO();
+    Empleado emp = dao.buscarPorRun(run);
+    if (emp != null) {
+        // Si existe, eliminar el empleado
+        boolean resultado = dao.eliminar(run);
+
+        if (resultado) {
+            JOptionPane.showMessageDialog(rootPane, "El empleado ha sido eliminado exitosamente");
+            limpiar();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "No se pudo eliminar al empleado");
+        }
+    } else {
+        // Si no se encuentra el empleado, mostrar un mensaje
+        JOptionPane.showMessageDialog(rootPane, "No se encontró un empleado con el RUN proporcionado");
+    }
+
+    }//GEN-LAST:event_btnEliminarActionPerformed
 
     public void limpiar(){
         txtRun.setText("");
@@ -381,7 +442,6 @@ public class FormularioEmpleado extends javax.swing.JFrame {
         cmbTipoEmpleado.setSelectedItem("");
         txtTelefono.setText("");
         }
-    
     
     /**
      * @param args the command line arguments
@@ -429,6 +489,8 @@ public class FormularioEmpleado extends javax.swing.JFrame {
     private javax.swing.JPanel jpanTitulo;
     private javax.swing.JLabel lblApellidoMat;
     private javax.swing.JLabel lblApellidoPat;
+    private javax.swing.JLabel lblContrato;
+    private javax.swing.JLabel lblGlosarioContrato;
     private javax.swing.JLabel lblImagen;
     private javax.swing.JLabel lblNombre;
     private javax.swing.JLabel lblRun;
@@ -437,6 +499,7 @@ public class FormularioEmpleado extends javax.swing.JFrame {
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JTextField txtApellidoMat;
     private javax.swing.JTextField txtApellidoPat;
+    private javax.swing.JTextField txtContrato;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtRun;
     private javax.swing.JTextField txtTelefono;
